@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMO searchBar
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  try to take over the world!
 // @author       You
 // @match        https://*.algerianmo.com/*
@@ -12,18 +12,19 @@
 // ==/UserScript==
 
 let tables = document.getElementsByTagName("table");
-for(let t = 0; t < tables.length;t++){
-    document.getElementsByTagName("table")[t].insertAdjacentHTML('beforebegin',
-`<input type="text" class="form-control" id="searchBar`+t+`" placeholder="ابحث عن...">
+if(tables && tables.length >= 1)
+    document.getElementsByTagName("body")[0].children[1].insertAdjacentHTML('beforebegin',
+`<input type="text" class="form-control" id="searchBar`+`" placeholder="ابحث عن...">
 `);
-document.getElementById("searchBar"+t).addEventListener ("keyup", function(){myFunction(t);}, false);
+for(let t = 0; t < tables.length;t++){
+document.getElementById("searchBar").addEventListener ("keyup", function(){myFunction(t);}, false);
 
 }
 
 
 function myFunction(t) {
   var input, filter, table, tr, i, txtValue;
-  input = document.getElementById("searchBar"+t);
+  input = document.getElementById("searchBar");
   filter = input.value.toUpperCase();
   table = document.getElementsByTagName("table")[t];
   tr = table.getElementsByTagName("tr");
