@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMO searchBar
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.2.1
 // @description  try to take over the world!
 // @author       You
 // @match        https://*.algerianmo.com/control/correction*
@@ -12,7 +12,11 @@
 // @downloadURL https://github.com/SpeedCode210/algerianmo-search-bar/raw/main/script.user.js
 // @grant        none
 // ==/UserScript==
-
+if(window.location.href.includes("algerianmo.com/control/correction")){
+    for(let a of document.getElementsByTagName("a")){
+        a.href = a.href + "?decide=a";
+    }
+}
 let tables = document.getElementsByTagName("table");
 if(tables && tables.length >= 1)
     document.getElementsByTagName("body")[0].children[1].insertAdjacentHTML('beforebegin',
@@ -37,7 +41,7 @@ function myFunction(t) {
     if (tds) {
       txtValue = "";
       for(let j = 0; j < tds.length; j++){
-            txtValue += tds[j].textContent || td.innerText;
+            txtValue += tds[j].textContent || tds[j].innerText;
       }
       if (txtValue.replace("𝑹𝒂𝒔𝒔𝒊𝒎 𝑪𝒉𝒆𝒓𝒊𝒓","Rassim Cherir").toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
